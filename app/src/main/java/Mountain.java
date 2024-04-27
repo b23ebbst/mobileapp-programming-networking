@@ -1,17 +1,24 @@
 package com.example.networking;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Mountain {
-
-    public String ID;
+    @SerializedName("name")
     public String name;
-    public String type;
-    public String company;
-    public String location;
-    public String category;
-    public int size;
-    public int cost;
-
-    public Mountain(){
-        name="Namn:";
+    public Mountain(String name){
+        this.name=name;
+    }
+    public String getName(){
+        return name;
+    }
+    public void setName(String name){
+        this.name=name;
+    }
+    @Override
+    public String toString(){
+        return name;
+    }
+    public String getTitle(){
+        return name;
     }
 }
