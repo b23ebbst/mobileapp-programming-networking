@@ -1,39 +1,51 @@
 
 # Rapport
 
-**Skriv din rapport här!**
-
-_Du kan ta bort all text som finns sedan tidigare_.
-
-## Följande grundsyn gäller dugga-svar:
-
-- Ett kortfattat svar är att föredra. Svar som är längre än en sida text (skärmdumpar och programkod exkluderat) är onödigt långt.
-- Svaret skall ha minst en snutt programkod.
-- Svaret skall inkludera en kort övergripande förklarande text som redogör för vad respektive snutt programkod gör eller som svarar på annan teorifråga.
-- Svaret skall ha minst en skärmdump. Skärmdumpar skall illustrera exekvering av relevant programkod. Eventuell text i skärmdumpar måste vara läsbar.
-- I de fall detta efterfrågas, dela upp delar av ditt svar i för- och nackdelar. Dina för- respektive nackdelar skall vara i form av punktlistor med kortare stycken (3-4 meningar).
-
-Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad då den blir lättare att läsa vilket gör det lättare att hitta syntaktiska fel.
+Har skapat en RecyclerView som ska visa upp namn på olika berg som hämtas in via en URL.
+För att kunna ta emot datan i URL:en har en Mountain-klass skapats som endast tar emot namnet på 
+bergen, internetåtkomst har tillåtits, och för att kunna visa datan i RecyclerView har en 
+RecyclerViewAdaper skapats. Då datan inte kan visas upp direkt, måste datan parsas ut vilket görs 
+genom Gson som parsar ut JSON-datan från URL:en. I kodexemplet nedan möjliggörs parsning av 
+JSON-datan ia Gson, och nedanför detta ser vi klassen som hanterar och tar emot information (namn) 
+om bergen. 
 
 ```
-function errorCallback(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            // Geolocation API stöds inte, gör något
-            break;
-        case error.POSITION_UNAVAILABLE:
-            // Misslyckat positionsanrop, gör något
-            break;
-        case error.UNKNOWN_ERROR:
-            // Okänt fel, gör något
-            break;
+@Override
+    public void onPostExecute(String json) {
+        Log.d("MainActivity", json);
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<Mountain>>() {}.getType();
+        mountainArrayList = gson.fromJson(json, type);
     }
-}
+    
+/----------/
+
+public class Mountain {
+    @SerializedName("name")
+    public String name;
+    public Mountain(String name){
+        this.name=name;
+    }
+    public String getName(){
+        return name;
+    }
+    public void setName(String name){
+        this.name=name;
+    }
+    @Override
+    public String toString(){
+        return name;
+    }
+    public String getTitle(){
+        return name;
+    }
+}   
+ 
 ```
 
 Bilder läggs i samma mapp som markdown-filen.
 
-![](android.png)
+![](Screenshot_Mountain.png)
 
 Läs gärna:
 
